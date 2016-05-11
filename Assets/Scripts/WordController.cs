@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class TextController : MonoBehaviour {
+public class WordController : MonoBehaviour {
 
 	public GameObject charDisplayPrefab;
 	public Sprite[] handImage;
@@ -29,7 +29,7 @@ public class TextController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		keyHit = gestureController.IsPassed (GetCurrentCharacter ());
-		if (GameManager.DEBUG) {
+		if (Config.DEBUG) {
 			keyHit = keyHit || Input.GetKeyDown (GetCurrentKeyCode ());
 		}
 		if (keyHit) {

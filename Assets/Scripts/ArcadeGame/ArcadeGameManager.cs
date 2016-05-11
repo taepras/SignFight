@@ -2,14 +2,14 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour {
+public class ArcadeGameManager : MonoBehaviour {
 
 	public static bool DEBUG = true;
 
 	public float startDelay = 3f;
 	public float timePerLetter = 2f;
 	public Text scoreText;
-	public TextController textController;
+	public WordController wordController;
 	public TimeController timeController;
 	public HealthController enemyHealthController;
 	public Vector3 enemySpawnPoint = new Vector3(0f, 0f, 10f);
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (textController.IsKeyHit () || (timeController.IsActive() && timeController.IsTimeUp())) {
+		if (wordController.IsKeyHit () || (timeController.IsActive() && timeController.IsTimeUp())) {
 			if (timeController.IsTimeUp ()) {
 				lettersMissed++;
 				hasMissedThisWord = true;
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour {
 
 			timeController.ResetTimer ();
 
-			bool isWordFinished = !textController.NextChar ();
+			bool isWordFinished = !wordController.NextChar ();
 			if (isWordFinished) {
 				if(lettersClearedThisWord > 0)
 					player.Fire (lettersClearedThisWord);
@@ -98,10 +98,10 @@ public class GameManager : MonoBehaviour {
 
 	private void DisplayUI () {
 		if (Time.time - uiStartHideTime > uiHideTime) {
-			textController.Show ();
+			wordController.Show ();
 			timeController.Show ();
 		} else {
-			textController.Hide ();
+			wordController.Hide ();
 			timeController.Hide ();
 		}
 	}
