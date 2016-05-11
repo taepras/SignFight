@@ -29,11 +29,13 @@ public class TextController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		keyHit = gestureController.IsPassed (GetCurrentCharacter ());
+		if (GameManager.DEBUG) {
+			keyHit = keyHit || Input.GetKeyDown (GetCurrentKeyCode ());
+		}
 		if (keyHit) {
 			gestureController.ResetCorrectTime ();
 		}
 		//keyHit = gestureController.IsCorrect (GetCurrentCharacter ());
-		// keyHit = Input.GetKeyDown (GetCurrentKeyCode ());
 	}
 
 	private char getRandomChar(){

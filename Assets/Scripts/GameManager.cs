@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
+	public static bool DEBUG = true;
+
 	public float startDelay = 3f;
 	public float timePerLetter = 2f;
 	public Text scoreText;
