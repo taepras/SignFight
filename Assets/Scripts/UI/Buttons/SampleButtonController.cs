@@ -5,6 +5,6 @@ public class SampleButtonController : ButtonController {
 
 	protected override void OnClick () {
 		print ("BUTTON CLICKED!");
-		Application.LoadLevel ("Game");
+		Application.LoadLevel ("ArcadeGame");
 	}
 }
