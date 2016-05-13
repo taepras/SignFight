@@ -50,34 +50,12 @@ public class GestureController : MonoBehaviour {
 				}
 				accPercentage = GetAccuracyPercentage (refChar);
 			}
-
-			if (hand.IsLeft) {
-				leftHandFound = true;
-				Vector3 palmPosition = hand.PalmPosition.ToUnity () - transform.position;
-				float x = (Quaternion.Inverse(transform.rotation) * palmPosition).x + 0.2f;
-				float y = (Quaternion.Inverse(transform.rotation) * palmPosition).z;
-				float z = -3;
-				cursor.position = new Vector3 (x * cursorSensitivity, y * cursorSensitivity, z);
-				cursor.gameObject.SetActive (true);
-				if (hand.GrabStrength > grabThreshold) {
-					grabbing = true;
-					cursor.gameObject.GetComponent<UnityEngine.UI.Image> ().color = new Color (0f, 1f, 1f, 0.8f);
-				} else {
-					grabbing = false;
-					cursor.gameObject.GetComponent<UnityEngine.UI.Image> ().color = new Color (1f, 1f, 1f, 0.7f);
-				}
-				//print (hand.PalmPosition + " " + cursor.position);
-			}
 		}
 
 		if (!rightHandFound) {
 			accPercentage = 0;
 		}
-
-		if (!leftHandFound) {
-			cursor.gameObject.SetActive (false);
-		}
-
+			
 		//Debug.Log("char: " + refChar + ", isCorrect: " + IsCorrect(refChar) + ", timeToPass: " + GetTimeLeftToPass() + ", isPassed: " + IsPassed(refChar));
 		accUI.SetAccuracyPercentage (accPercentage);
 
@@ -179,9 +157,5 @@ public class GestureController : MonoBehaviour {
 		//print ("char : " + refChar + ", error: " + error + ", %: " + ratio * 100);
 
 		return ratio * 100;
-	}
-
-	public bool IsGrabbing(){
-		return grabbing;
 	}
 }

@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class ButtonController : MonoBehaviour {
 
-	public GestureController hand;
 	public float timeToClick = 1f;
 
 	private Slider clickSlider;
@@ -27,9 +26,16 @@ public class ButtonController : MonoBehaviour {
 	
 	}
 
-	void OnTriggerStay2D (Collider2D other){
+	void OnTriggerEnter2D (Collider2D other) {
 		CursorController cursor = other.GetComponent<CursorController> ();
-		if (cursor != null && hand.IsGrabbing ()) {
+		if (cursor != null) {
+			GetComponent<Image> ().color = new Color (0.8f, 0.8f, 0.8f, 1f);
+		}
+	}
+
+	void OnTriggerStay2D (Collider2D other) {
+		CursorController cursor = other.GetComponent<CursorController> ();
+		if (cursor != null && cursor.IsGrabbing ()) {
 			clickSlider.value = (Time.time - timeStartClick) / timeToClick;
 			if (Time.time - timeStartClick >= timeToClick) {
 				timeStartClick = Time.time;
@@ -42,8 +48,12 @@ public class ButtonController : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D (Collider2D other){
-		timeStartClick = Time.time;
-		clickSlider.value = 0;
+		CursorController cursor = other.GetComponent<CursorController> ();
+		if (cursor != null) {
+			GetComponent<Image> ().color = new Color (1f, 1f, 1f, 1f);
+			timeStartClick = Time.time;
+			clickSlider.value = 0;
+		}
 	}
 
 	virtual protected void OnClick () {
