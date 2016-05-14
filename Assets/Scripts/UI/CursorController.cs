@@ -20,6 +20,7 @@ public class CursorController : MonoBehaviour {
 	void Start () {
 		provider = FindObjectOfType<LeapProvider> () as LeapProvider;
 		cursor = GetComponent<RectTransform> ();
+		cursor.anchoredPosition = new Vector2 (0f, 0f);
 	}
 	
 	// Update is called once per frame
@@ -35,7 +36,6 @@ public class CursorController : MonoBehaviour {
 			float y = (Quaternion.Inverse (provider.transform.rotation) * palmPosition).z;
 			float z = -3;
 			cursor.position = new Vector3 (x * cursorSensitivity, y * cursorSensitivity, z);
-			print (palmPosition + " " + cursor.position);
 			cursor.gameObject.SetActive (true);
 			if (hand.GrabStrength > grabThreshold) {
 				grabbing = true;

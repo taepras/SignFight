@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ArcadeGameManager : MonoBehaviour {
 
-	public static bool DEBUG = true;
+	public static ArcadeGameManager instance = null;
 
 	public float startDelay = 3f;
 	public float timePerLetter = 2f;
@@ -20,21 +20,29 @@ public class ArcadeGameManager : MonoBehaviour {
 	public GameObject[] enemyPrefabs;
 	public EnemyController enemy;
 	public PlayerController player;
+	public GameObject HPUpItemPrefab;
+	public GameObject BigAttackItemPrefab;
 
 	// TODO move to, say, player controller?
 	public Rigidbody fireballPrefab;
 
 	public int scorePerLetter = 1;
 	public int scorePerWord = 5;
+	public int scorePerEnemy = 10;
+	public int comboToActivateBigAttack = 20;
 
 	// scoring
 	private int lettersCleared = 0;
 	private int lettersMissed = 0;
 	private int wordsCleared = 0;
 	private int wordsMissed = 0;
+	private int enemiesKilled = 0;
+	private int combo;
+	private int maxCombo = 0;
 
 	private bool hasMissedThisWord = false;
 	private int lettersClearedThisWord = 0;
+	private bool bigAttackShown = false;
 
 	private float startTime = 0;
 	private float uiStartHideTime = 0;
@@ -47,6 +55,10 @@ public class ArcadeGameManager : MonoBehaviour {
 		CreateNewEnemy ();
 		HideUI (startDelay);
 		timeController.SetTimePerLetter (timePerLetter);
+		if (instance == null)
+			instance = this;
+		else
+			Destroy (this);
 	}
 	
 	// Update is called once per frame
@@ -56,10 +68,17 @@ public class ArcadeGameManager : MonoBehaviour {
 				lettersMissed++;
 				hasMissedThisWord = true;
 				enemy.Fire ();
+				combo = 0;
+				bigAttackShown = false;
 			} else {
 				lettersCleared++;
 				lettersClearedThisWord++;
-				//player.Fire ();
+				combo++;
+				maxCombo = Mathf.Max (combo, maxCombo);
+				if (combo > 0 && combo % comboToActivateBigAttack == 0 && FindObjectOfType<BigAttackItem>() == null) {
+					CreateBigAttack ();
+					bigAttackShown = true;
+				}
 			}
 
 			timeController.ResetTimer ();
@@ -79,13 +98,19 @@ public class ArcadeGameManager : MonoBehaviour {
 		}
 
 		if (enemy.IsDead ()) {
+			enemiesKilled++;
 			HideUI (startDelay);
 			OnEnemyDead ();
 		}
 
 		if (player.IsDead ()) {
-			HideUI (1000f);
+			HideUI (100000f);
 			uiText.text = "GAME OVER";
+		} else {
+			float p = Random.Range (0f, 5000f) * Mathf.Pow(player.GetHealthPercentage () / 100f, 2);
+			if (p < 1f && FindObjectOfType<HPUpItem> () == null) {
+				CreateHPUp ();
+			}
 		}
 
 		scoreText.text = CalculateScore ().ToString ();
@@ -93,7 +118,7 @@ public class ArcadeGameManager : MonoBehaviour {
 	}
 
 	private int CalculateScore () {
-		return lettersCleared * scorePerLetter + wordsCleared * scorePerWord;
+		return lettersCleared * scorePerLetter + wordsCleared * scorePerWord + enemiesKilled * scorePerEnemy;
 	}
 
 	private void DisplayUI () {
@@ -114,8 +139,6 @@ public class ArcadeGameManager : MonoBehaviour {
 	}
 
 	private void OnEnemyDead () {
-		// TODO DEALS WITH DA REBIRTH
-		//enemy.OnDeath ();
 		CreateNewEnemy ();
 	}
 
@@ -129,5 +152,19 @@ public class ArcadeGameManager : MonoBehaviour {
 		enemy.SetPlayer (player);
 		enemy.SetHealthDisplay (enemyHealthController);
 		player.SetEnemy (enemy);
+	}
+
+	private void CreateHPUp(){
+		HPUpItem hp = (Instantiate (HPUpItemPrefab) as GameObject).GetComponent<HPUpItem> ();
+		hp.InitPosition ();
+	}
+
+	private void CreateBigAttack(){
+		BigAttackItem ba = (Instantiate (BigAttackItemPrefab) as GameObject).GetComponent<BigAttackItem> ();
+		ba.InitPosition ();
+	}
+
+	public int GetCombo () {
+		return combo;
 	}
 }

@@ -48,4 +48,15 @@ public class PlayerController : MonoBehaviour {
 	public bool IsDead () {
 		return health <= 0;
 	}
+
+	public void IncreaseHealth (float amount) {
+		health += amount;
+		if (health > maxHealth)
+			health = maxHealth;
+		healthSlider.value = health * 100 / maxHealth;
+	}
+
+	public float GetHealthPercentage () {
+		return health / maxHealth * 100;
+	}
 }
