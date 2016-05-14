@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ArcadeGameManager : MonoBehaviour {
 
-	public static bool DEBUG = true;
+	public static ArcadeGameManager instance = null;
 
 	public float startDelay = 3f;
 	public float timePerLetter = 2f;
@@ -14,27 +14,36 @@ public class ArcadeGameManager : MonoBehaviour {
 	public HealthController enemyHealthController;
 	public Vector3 enemySpawnPoint = new Vector3(0f, 0f, 10f);
 	public Text uiText;
+	public GameObject overlayScreen;
 
 	public float wordPauseTime = 1f;
 
 	public GameObject[] enemyPrefabs;
 	public EnemyController enemy;
 	public PlayerController player;
+	public GameObject HPUpItemPrefab;
+	public GameObject BigAttackItemPrefab;
 
 	// TODO move to, say, player controller?
 	public Rigidbody fireballPrefab;
 
 	public int scorePerLetter = 1;
 	public int scorePerWord = 5;
+	public int scorePerEnemy = 10;
+	public int comboToActivateBigAttack = 20;
 
 	// scoring
 	private int lettersCleared = 0;
 	private int lettersMissed = 0;
 	private int wordsCleared = 0;
 	private int wordsMissed = 0;
+	private int enemiesKilled = 0;
+	private int combo;
+	private int maxCombo = 0;
 
 	private bool hasMissedThisWord = false;
 	private int lettersClearedThisWord = 0;
+	private bool bigAttackShown = false;
 
 	private float startTime = 0;
 	private float uiStartHideTime = 0;
@@ -42,11 +51,27 @@ public class ArcadeGameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		ShowOverlayScreenWithText ("Survive as long as possible!", startDelay - 1f);
+
+		// TODO remove this test
+		try {
+			GameStatus.Load ();
+			print (JsonUtility.ToJson(GameStatus.instance));
+		} catch(System.Exception e){
+			GameStatus.Create ();
+			GameStatus.Save ();
+		}
+
 		// TODO count down before start
 		uiText.text = "";
 		CreateNewEnemy ();
 		HideUI (startDelay);
 		timeController.SetTimePerLetter (timePerLetter);
+		if (instance == null)
+			instance = this;
+		else
+			Destroy (this);
 	}
 	
 	// Update is called once per frame
@@ -56,10 +81,17 @@ public class ArcadeGameManager : MonoBehaviour {
 				lettersMissed++;
 				hasMissedThisWord = true;
 				enemy.Fire ();
+				combo = 0;
+				bigAttackShown = false;
 			} else {
 				lettersCleared++;
 				lettersClearedThisWord++;
-				//player.Fire ();
+				combo++;
+				maxCombo = Mathf.Max (combo, maxCombo);
+				if (combo > 0 && combo % comboToActivateBigAttack == 0 && FindObjectOfType<BigAttackItem>() == null) {
+					Instantiate (BigAttackItemPrefab);
+					bigAttackShown = true;
+				}
 			}
 
 			timeController.ResetTimer ();
@@ -79,13 +111,36 @@ public class ArcadeGameManager : MonoBehaviour {
 		}
 
 		if (enemy.IsDead ()) {
+			enemiesKilled++;
 			HideUI (startDelay);
 			OnEnemyDead ();
 		}
 
 		if (player.IsDead ()) {
-			HideUI (1000f);
-			uiText.text = "GAME OVER";
+			HideUI (100000f);
+			//uiText.text = "GAME OVER";
+
+			ShowOverlayScreenWithText (
+				"GAME OVER\n" +
+				"\n" +
+				"Score: " + CalculateScore () + "\n" +
+				"\n" +
+				"Letters Cleared: " + lettersCleared + "\n" +
+				"Words Cleared: " + wordsCleared + "\n" +
+				"Enemies Killed: " + enemiesKilled
+			);
+			
+			// save player high stats
+			GameStatus.instance.highScore = Mathf.Max (GameStatus.instance.highScore, CalculateScore());
+			GameStatus.instance.highCombo = Mathf.Max (GameStatus.instance.highCombo, maxCombo);
+			GameStatus.instance.highLettersCleared = Mathf.Max (GameStatus.instance.highLettersCleared, lettersCleared);
+			GameStatus.instance.highEnemiesKilled = Mathf.Max (GameStatus.instance.highEnemiesKilled, enemiesKilled);
+			GameStatus.Save ();
+		} else {
+			float p = Random.Range (0f, 1000f) * Mathf.Pow(player.GetHealthPercentage () / 100f, 2);
+			if (p < 1f && FindObjectOfType<HPUpItem> () == null) {
+				Instantiate (HPUpItemPrefab);
+			}
 		}
 
 		scoreText.text = CalculateScore ().ToString ();
@@ -93,7 +148,7 @@ public class ArcadeGameManager : MonoBehaviour {
 	}
 
 	private int CalculateScore () {
-		return lettersCleared * scorePerLetter + wordsCleared * scorePerWord;
+		return lettersCleared * scorePerLetter + wordsCleared * scorePerWord + enemiesKilled * scorePerEnemy;
 	}
 
 	private void DisplayUI () {
@@ -114,8 +169,6 @@ public class ArcadeGameManager : MonoBehaviour {
 	}
 
 	private void OnEnemyDead () {
-		// TODO DEALS WITH DA REBIRTH
-		//enemy.OnDeath ();
 		CreateNewEnemy ();
 	}
 
@@ -129,5 +182,40 @@ public class ArcadeGameManager : MonoBehaviour {
 		enemy.SetPlayer (player);
 		enemy.SetHealthDisplay (enemyHealthController);
 		player.SetEnemy (enemy);
+	}
+
+	public int GetCombo () {
+		return combo;
+	}
+
+	//deals with overlay screen
+
+	private void ShowOverlayScreenWithText(string s){
+		overlayScreen.SetActive (true);
+		Text t = overlayScreen.GetComponentInChildren<Text>();
+		t.text = s;
+	}
+
+	private void ShowOverlayScreenWithText(string s, float time){
+		ShowOverlayScreenWithText (s);
+		StartCoroutine (WaitHideOverlayScreen (time));
+	}
+
+	private void HideOverlayScreen () {
+		overlayScreen.SetActive (false);
+	}
+
+	private void ShowOverlayScreen () {
+		overlayScreen.SetActive (true);
+	}
+
+	private void ShowOverlayScreen (float time) {
+		overlayScreen.SetActive (true);
+		StartCoroutine (WaitHideOverlayScreen (time));
+	}
+
+	IEnumerator WaitHideOverlayScreen (float time) {
+		yield return new WaitForSeconds (time);
+		HideOverlayScreen ();
 	}
 }

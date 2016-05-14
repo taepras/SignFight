@@ -45,9 +45,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\BigAttackItem.cs" />
+     <Compile Include="Assets\ComboTextController.cs" />
      <Compile Include="Assets\Downloaded\ENTIGI\FantasyMonsterPack\Scripts\ShieldController.cs" />
      <Compile Include="Assets\Downloaded\FireExplosionVFX\Scripts\FxSplash.cs" />
      <Compile Include="Assets\Downloaded\FireExplosionVFX\Scripts\LaunchEffect.cs" />
+     <Compile Include="Assets\HPUpItem.cs" />
+     <Compile Include="Assets\ItemController.cs" />
      <Compile Include="Assets\LeapC\Arm.cs" />
      <Compile Include="Assets\LeapC\Bone.cs" />
      <Compile Include="Assets\LeapC\CSharpExtensions.cs" />
@@ -127,6 +131,7 @@
      <Compile Include="Assets\Scripts\ArcadeGame\PlayerController.cs" />
      <Compile Include="Assets\Scripts\ArcadeGame\TimeController.cs" />
      <Compile Include="Assets\Scripts\Config.cs" />
+     <Compile Include="Assets\Scripts\GameStatus.cs" />
      <Compile Include="Assets\Scripts\GestureController.cs" />
      <Compile Include="Assets\Scripts\HandDebugger.cs" />
      <Compile Include="Assets\Scripts\HandLetter.cs" />

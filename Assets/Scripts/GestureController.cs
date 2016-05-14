@@ -6,13 +6,9 @@ public class GestureController : MonoBehaviour {
 
 	public float gestureSensitivity = 7f;
 	public float timeToCorrect = 0.4f;
-	public float grabThreshold = 0.9f;
-	public float cursorSensitivity = 3000f;
 
 	public AccuracyUIController accUI;
 	public CorrectTimeUIController correctUI;
-
-	public RectTransform cursor;
 
 	private HandLetter[] handLetters;
 	public Vector3[] normalizedFingerPositions;
@@ -20,7 +16,6 @@ public class GestureController : MonoBehaviour {
 	private char refChar = 'A';
 	private float timeStartCorrect = 0;
 	private bool grabbing = false;
-	private Vector3 firstLeftHandPosition = new Vector3(999, 999, 999);
 
 	LeapProvider provider;
 
@@ -29,7 +24,6 @@ public class GestureController : MonoBehaviour {
 		provider = FindObjectOfType<LeapProvider> () as LeapProvider;
 		LoadHandLetters ();
 		normalizedFingerPositions = new Vector3[5];
-		cursor.anchoredPosition = new Vector2 (0f, 0f);
 	}
 	
 	// Update is called once per frame
@@ -38,22 +32,18 @@ public class GestureController : MonoBehaviour {
 		bool leftHandFound = false;
 
 		Frame frame = provider.CurrentFrame;
-		foreach (Hand hand in frame.Hands)
-		{
-			if (hand.IsRight)
-			{
-				rightHandFound = true;
-				UpdateNormalizedFingerPositions (hand);
-				// TODO fix json file for scale
-				for (int i = 0; i < 5; i++) {
-					normalizedFingerPositions [i] *= 5;
-				}
-				accPercentage = GetAccuracyPercentage (refChar);
-			}
-		}
 
-		if (!rightHandFound) {
-			accPercentage = 0;
+		accPercentage = 0;
+		foreach (Hand hand in frame.Hands) {
+			UpdateNormalizedFingerPositions (hand);
+			// TODO fix json file for scale
+			for (int i = 0; i < 5; i++) {
+				normalizedFingerPositions [i] *= 5;
+				if (hand.IsLeft) {
+					normalizedFingerPositions [i].x *= -1;
+				}
+			}
+			accPercentage = Mathf.Max(accPercentage, GetAccuracyPercentage (refChar));
 		}
 			
 		//Debug.Log("char: " + refChar + ", isCorrect: " + IsCorrect(refChar) + ", timeToPass: " + GetTimeLeftToPass() + ", isPassed: " + IsPassed(refChar));
