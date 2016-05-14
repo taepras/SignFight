@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BigAttackItem : ItemController {
+public class BigAttackItem : GameItemController {
 	public float HPUpAmount = 40f;
 
 	protected override void OnStart () {

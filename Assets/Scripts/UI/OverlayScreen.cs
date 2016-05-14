@@ -57,7 +57,7 @@ public class OverlayScreen : MonoBehaviour {
 		           "\n" +
 		           "Letters Cleared: " + ArcadeGameManager.instance.GetLettersCleared () + "\n" +
 		           "Words Cleared: " + ArcadeGameManager.instance.GetWordsCleared () + "\n" +
-		           "Enemies Killed: " + ArcadeGameManager.instance.GetEnemiesKilled () +
+		           "Enemies Killed: " + ArcadeGameManager.instance.GetEnemiesKilled () + "\n" +
 		           "Longest Combo: " + ArcadeGameManager.instance.GetMaxCombo () + "\n";
 		ShowOverlayScreenWithText (s);
 	}

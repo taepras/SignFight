@@ -65,7 +65,6 @@ public class EnemyController : MonoBehaviour {
 		a.SetTrigger ("DeathTrigger");
 		ParticleSystem explosionParticles = Instantiate (explosionPrefab).GetComponent<ParticleSystem> ();
 		explosionParticles.Play ();
-		print (explosionParticles.duration);
 		Destroy (explosionParticles.gameObject, explosionParticles.duration);
 		Destroy (gameObject, 0f);
 	}

@@ -29,7 +29,7 @@ public class ButtonController : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D other) {
 		CursorController cursor = other.GetComponent<CursorController> ();
 		if (cursor != null) {
-			GetComponent<Image> ().color = new Color (0.8f, 0.8f, 0.8f, 1f);
+			GetComponent<Image> ().color = new Color (0.4f, 0.4f, 0.4f, 1f);
 		}
 	}
 

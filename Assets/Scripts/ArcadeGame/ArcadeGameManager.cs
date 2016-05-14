@@ -127,6 +127,7 @@ public class ArcadeGameManager : MonoBehaviour {
 			GameStatus.instance.highCombo = Mathf.Max (GameStatus.instance.highCombo, maxCombo);
 			GameStatus.instance.highLettersCleared = Mathf.Max (GameStatus.instance.highLettersCleared, lettersCleared);
 			GameStatus.instance.highEnemiesKilled = Mathf.Max (GameStatus.instance.highEnemiesKilled, enemiesKilled);
+			GameStatus.instance.money += CalculateScore ();
 			GameStatus.Save ();
 		} else {
 			float p = Random.Range (0f, 1000f) * Mathf.Pow(player.GetHealthPercentage () / 100f, 2);

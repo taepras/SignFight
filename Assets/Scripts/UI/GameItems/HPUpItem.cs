@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HPUpItem : ItemController {
+public class HPUpItem : GameItemController {
 
 	public float HPUpAmount = 40f;
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ItemController : MonoBehaviour {
+public class GameItemController : MonoBehaviour {
 
 	public float lifeTime = 5f;
 
