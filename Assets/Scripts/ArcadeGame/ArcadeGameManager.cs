@@ -14,7 +14,7 @@ public class ArcadeGameManager : MonoBehaviour {
 	public HealthController enemyHealthController;
 	public Vector3 enemySpawnPoint = new Vector3(0f, 0f, 10f);
 	public Text uiText;
-	public GameObject overlayScreen;
+	public OverlayScreen overlayScreen;
 
 	public float wordPauseTime = 1f;
 
@@ -52,7 +52,7 @@ public class ArcadeGameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		ShowOverlayScreenWithText ("Survive as long as possible!", startDelay - 1f);
+		overlayScreen.ShowOverlayScreenWithText ("Survive!", startDelay - 1f);
 
 		// TODO remove this test
 		try {
@@ -120,15 +120,7 @@ public class ArcadeGameManager : MonoBehaviour {
 			HideUI (100000f);
 			//uiText.text = "GAME OVER";
 
-			ShowOverlayScreenWithText (
-				"GAME OVER\n" +
-				"\n" +
-				"Score: " + CalculateScore () + "\n" +
-				"\n" +
-				"Letters Cleared: " + lettersCleared + "\n" +
-				"Words Cleared: " + wordsCleared + "\n" +
-				"Enemies Killed: " + enemiesKilled
-			);
+			overlayScreen.ShowEndGameOverlayScreen ();
 			
 			// save player high stats
 			GameStatus.instance.highScore = Mathf.Max (GameStatus.instance.highScore, CalculateScore());
@@ -188,34 +180,23 @@ public class ArcadeGameManager : MonoBehaviour {
 		return combo;
 	}
 
-	//deals with overlay screen
-
-	private void ShowOverlayScreenWithText(string s){
-		overlayScreen.SetActive (true);
-		Text t = overlayScreen.GetComponentInChildren<Text>();
-		t.text = s;
+	public int GetMaxCombo () {
+		return maxCombo;
 	}
 
-	private void ShowOverlayScreenWithText(string s, float time){
-		ShowOverlayScreenWithText (s);
-		StartCoroutine (WaitHideOverlayScreen (time));
+	public int GetScore(){
+		return CalculateScore ();
 	}
 
-	private void HideOverlayScreen () {
-		overlayScreen.SetActive (false);
+	public int GetLettersCleared(){
+		return lettersCleared;
 	}
 
-	private void ShowOverlayScreen () {
-		overlayScreen.SetActive (true);
+	public int GetWordsCleared(){
+		return wordsCleared;
 	}
 
-	private void ShowOverlayScreen (float time) {
-		overlayScreen.SetActive (true);
-		StartCoroutine (WaitHideOverlayScreen (time));
-	}
-
-	IEnumerator WaitHideOverlayScreen (float time) {
-		yield return new WaitForSeconds (time);
-		HideOverlayScreen ();
+	public int GetEnemiesKilled(){
+		return enemiesKilled;
 	}
 }
