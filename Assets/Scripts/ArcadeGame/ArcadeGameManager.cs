@@ -50,6 +50,16 @@ public class ArcadeGameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		// TODO remove this test
+		try {
+			GameStatus.Load ();
+			print (JsonUtility.ToJson(GameStatus.instance));
+		} catch(System.Exception e){
+			GameStatus.Create ();
+			GameStatus.Save ();
+		}
+
 		// TODO count down before start
 		uiText.text = "";
 		CreateNewEnemy ();
@@ -76,7 +86,7 @@ public class ArcadeGameManager : MonoBehaviour {
 				combo++;
 				maxCombo = Mathf.Max (combo, maxCombo);
 				if (combo > 0 && combo % comboToActivateBigAttack == 0 && FindObjectOfType<BigAttackItem>() == null) {
-					CreateBigAttack ();
+					Instantiate (BigAttackItemPrefab);
 					bigAttackShown = true;
 				}
 			}
@@ -106,10 +116,16 @@ public class ArcadeGameManager : MonoBehaviour {
 		if (player.IsDead ()) {
 			HideUI (100000f);
 			uiText.text = "GAME OVER";
+			// save player high stats
+			GameStatus.instance.highScore = Mathf.Max (GameStatus.instance.highScore, CalculateScore());
+			GameStatus.instance.highCombo = Mathf.Max (GameStatus.instance.highCombo, maxCombo);
+			GameStatus.instance.highLettersCleared = Mathf.Max (GameStatus.instance.highLettersCleared, lettersCleared);
+			GameStatus.instance.highEnemiesKilled = Mathf.Max (GameStatus.instance.highEnemiesKilled, enemiesKilled);
+			GameStatus.Save ();
 		} else {
-			float p = Random.Range (0f, 5000f) * Mathf.Pow(player.GetHealthPercentage () / 100f, 2);
+			float p = Random.Range (0f, 1000f) * Mathf.Pow(player.GetHealthPercentage () / 100f, 2);
 			if (p < 1f && FindObjectOfType<HPUpItem> () == null) {
-				CreateHPUp ();
+				Instantiate (HPUpItemPrefab);
 			}
 		}
 
@@ -152,16 +168,6 @@ public class ArcadeGameManager : MonoBehaviour {
 		enemy.SetPlayer (player);
 		enemy.SetHealthDisplay (enemyHealthController);
 		player.SetEnemy (enemy);
-	}
-
-	private void CreateHPUp(){
-		HPUpItem hp = (Instantiate (HPUpItemPrefab) as GameObject).GetComponent<HPUpItem> ();
-		hp.InitPosition ();
-	}
-
-	private void CreateBigAttack(){
-		BigAttackItem ba = (Instantiate (BigAttackItemPrefab) as GameObject).GetComponent<BigAttackItem> ();
-		ba.InitPosition ();
 	}
 
 	public int GetCombo () {

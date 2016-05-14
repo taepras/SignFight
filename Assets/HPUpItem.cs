@@ -5,7 +5,7 @@ public class HPUpItem : ItemController {
 
 	public float HPUpAmount = 40f;
 
-	void Start(){
+	protected override void OnStart () {
 		InitPosition ();
 	}
 
@@ -19,8 +19,7 @@ public class HPUpItem : ItemController {
 	}
 
 	protected override void OnItemCollected () {
-		PlayerController player = FindObjectOfType<PlayerController> ();
-		player.IncreaseHealth (HPUpAmount);
+		ArcadeGameManager.instance.player.IncreaseHealth (HPUpAmount);
 		print ("COLLECTED");
 	}
 }

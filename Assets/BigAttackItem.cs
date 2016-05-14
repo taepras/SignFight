@@ -4,7 +4,7 @@ using System.Collections;
 public class BigAttackItem : ItemController {
 	public float HPUpAmount = 40f;
 
-	void Start(){
+	protected override void OnStart () {
 		InitPosition ();
 	}
 

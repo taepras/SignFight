@@ -131,6 +131,7 @@
      <Compile Include="Assets\Scripts\ArcadeGame\PlayerController.cs" />
      <Compile Include="Assets\Scripts\ArcadeGame\TimeController.cs" />
      <Compile Include="Assets\Scripts\Config.cs" />
+     <Compile Include="Assets\Scripts\GameStatus.cs" />
      <Compile Include="Assets\Scripts\GestureController.cs" />
      <Compile Include="Assets\Scripts\HandDebugger.cs" />
      <Compile Include="Assets\Scripts\HandLetter.cs" />

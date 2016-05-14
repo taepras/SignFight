@@ -32,7 +32,7 @@ public class CursorController : MonoBehaviour {
 			Hand hand = frame.Hands [0];
 			handFound = true;
 			Vector3 palmPosition = hand.PalmPosition.ToUnity () - provider.transform.position;
-			float x = (Quaternion.Inverse(provider.transform.rotation) * palmPosition).x + handHorizontalOffset * (hand.IsLeft ? 1 : -1);
+			float x = (Quaternion.Inverse(provider.transform.rotation) * palmPosition).x + handHorizontalOffset * (hand.IsLeft ? -1 : 1);
 			float y = (Quaternion.Inverse (provider.transform.rotation) * palmPosition).z;
 			float z = -3;
 			cursor.position = new Vector3 (x * cursorSensitivity, y * cursorSensitivity, z);

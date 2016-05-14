@@ -32,22 +32,18 @@ public class GestureController : MonoBehaviour {
 		bool leftHandFound = false;
 
 		Frame frame = provider.CurrentFrame;
-		foreach (Hand hand in frame.Hands)
-		{
-			if (hand.IsRight)
-			{
-				rightHandFound = true;
-				UpdateNormalizedFingerPositions (hand);
-				// TODO fix json file for scale
-				for (int i = 0; i < 5; i++) {
-					normalizedFingerPositions [i] *= 5;
-				}
-				accPercentage = GetAccuracyPercentage (refChar);
-			}
-		}
 
-		if (!rightHandFound) {
-			accPercentage = 0;
+		accPercentage = 0;
+		foreach (Hand hand in frame.Hands) {
+			UpdateNormalizedFingerPositions (hand);
+			// TODO fix json file for scale
+			for (int i = 0; i < 5; i++) {
+				normalizedFingerPositions [i] *= 5;
+				if (hand.IsLeft) {
+					normalizedFingerPositions [i].x *= -1;
+				}
+			}
+			accPercentage = Mathf.Max(accPercentage, GetAccuracyPercentage (refChar));
 		}
 			
 		//Debug.Log("char: " + refChar + ", isCorrect: " + IsCorrect(refChar) + ", timeToPass: " + GetTimeLeftToPass() + ", isPassed: " + IsPassed(refChar));

@@ -10,6 +10,7 @@ public class ItemController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		startTime = Time.time;
+		OnStart ();
 	}
 	
 	// Update is called once per frame
@@ -26,5 +27,9 @@ public class ItemController : MonoBehaviour {
 
 	protected virtual void OnItemCollected () {
 		print ("Item Collected");
+	}
+
+	protected virtual void OnStart () {
+		print ("Item Created");
 	}
 }
