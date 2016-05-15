@@ -54,6 +54,15 @@ public class LetterController : MonoBehaviour {
 		setFontSize ();
 	}
 
+	public void SetCorrect (bool isCorrect) {
+		Color c = GetComponent<Image> ().color;
+		if (isCorrect) {
+			GetComponent<Image> ().color = new Color (0f, 0.8f, 0f, c.a);
+		} else {
+			GetComponent<Image> ().color = new Color (1f, 0f, 0f, c.a);
+		}
+	}
+
 	public void DecreasePosition () {
 		position--;
 		setFontSize ();
@@ -61,12 +70,13 @@ public class LetterController : MonoBehaviour {
 
 	void setFontSize () {
 		// TODO set opacity
+		Color c = GetComponent<Image> ().color;
 		if (position != 0) {
 			transform.localScale = new Vector3 (inactiveScale, inactiveScale, 1f);
-			GetComponent<Image> ().color = new Color (1f, 1f, 1f, 0.6f);
+				GetComponent<Image> ().color = new Color (c.r, c.g, c.b, 0.5f);
 		} else {
 			transform.localScale = new Vector3 (activeScale, activeScale, 1f);
-			GetComponent<Image> ().color = new Color (1f, 1f, 1f, 1f);
+			GetComponent<Image> ().color = new Color (c.r, c.g, c.b, 1f);
 		}
 	}
 
@@ -74,5 +84,9 @@ public class LetterController : MonoBehaviour {
 		GetComponent<Image> ().sprite = img;
 		handImage = img;
 		spriteRend = GetComponent<SpriteRenderer> ();
+	}
+
+	public int GetPosition () {
+		return position;
 	}
 }

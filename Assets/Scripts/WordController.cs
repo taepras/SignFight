@@ -51,6 +51,22 @@ public class WordController : MonoBehaviour {
 	public bool IsKeyHit(){
 		return keyHit;
 	}
+
+	public bool CheckAndGetNextChar (bool correct) {
+		SetThisCharCorrect (correct);
+		return NextChar ();
+	}
+
+	public void SetThisCharCorrect (bool correct) {
+		int k = -1;
+		for (int i = 0; i < displayCharacters.Count; i++) {
+			if (displayCharacters [i].GetPosition () == 0) {
+				k = i;
+				break;
+			}
+		}
+		displayCharacters [k].SetCorrect (correct);
+	}
 		
 	public bool NextChar () {
 		currentCharIndex++;

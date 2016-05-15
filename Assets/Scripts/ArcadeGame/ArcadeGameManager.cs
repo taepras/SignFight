@@ -6,8 +6,9 @@ public class ArcadeGameManager : MonoBehaviour {
 
 	public static ArcadeGameManager instance = null;
 
-	public float startDelay = 3f;
-	public float timePerLetter = 2f;
+	public float startDelay = 4f;
+	public float maxTimePerLetter = 3f;
+	public float minTimePerLetter = 1.5f;
 	public Text scoreText;
 	public WordController wordController;
 	public TimeController timeController;
@@ -69,7 +70,7 @@ public class ArcadeGameManager : MonoBehaviour {
 		uiText.text = "";
 		CreateNewEnemy ();
 		HideUI (startDelay);
-		timeController.SetTimePerLetter (timePerLetter);
+		timeController.SetTimePerLetter (maxTimePerLetter);
 		if (instance == null)
 			instance = this;
 		else
@@ -79,6 +80,9 @@ public class ArcadeGameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (wordController.IsKeyHit () || (timeController.IsActive() && timeController.IsTimeUp())) {
+			
+			bool isCorrectChar = false;
+
 			if (timeController.IsTimeUp ()) {
 				lettersMissed++;
 				hasMissedThisWord = true;
@@ -94,11 +98,13 @@ public class ArcadeGameManager : MonoBehaviour {
 					Instantiate (BigAttackItemPrefab);
 					bigAttackShown = true;
 				}
+				isCorrectChar = true;
 			}
 
 			timeController.ResetTimer ();
+			timeController.SetTimePerLetter (GetTimePerLetterFromCombo(combo));
 
-			bool isWordFinished = !wordController.NextChar ();
+			bool isWordFinished = !wordController.CheckAndGetNextChar (isCorrectChar);
 			if (isWordFinished) {
 				if(lettersClearedThisWord > 0)
 					player.Fire (lettersClearedThisWord);
@@ -205,5 +211,14 @@ public class ArcadeGameManager : MonoBehaviour {
 
 	public int GetEnemiesKilled(){
 		return enemiesKilled;
+	}
+
+	private float GetTimePerLetterFromCombo (int combo) {
+		float shift = 4f;
+		float rate = 1f;
+		float diff = 1 / (1 + Mathf.Exp (shift - combo / rate));
+		float t = maxTimePerLetter - diff * (maxTimePerLetter - minTimePerLetter);
+		print (t);
+		return t;
 	}
 }
