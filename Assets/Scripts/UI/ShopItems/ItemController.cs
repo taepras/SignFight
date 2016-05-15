@@ -63,6 +63,7 @@ public class ItemController : ButtonController {
 			//set skin
 			currentSkinIndex = index;
 			currentSkinMaterial = m;
+			RoomSkinController.instance.SetMaterial (m);
 		}
 	}
 
