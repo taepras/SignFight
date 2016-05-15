@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DangerBlinker.cs" />
      <Compile Include="Assets\Downloaded\ENTIGI\FantasyMonsterPack\Scripts\ShieldController.cs" />
      <Compile Include="Assets\Downloaded\FireExplosionVFX\Scripts\FxSplash.cs" />
      <Compile Include="Assets\Downloaded\FireExplosionVFX\Scripts\LaunchEffect.cs" />
@@ -133,6 +134,10 @@
      <Compile Include="Assets\Scripts\HandLetter.cs" />
      <Compile Include="Assets\Scripts\LetterController.cs" />
      <Compile Include="Assets\Scripts\PracticeGame\PracticeGameManager.cs" />
+     <Compile Include="Assets\Scripts\Temp\TempPracticeEnemyController.cs" />
+     <Compile Include="Assets\Scripts\Temp\TempPracticeGameManager.cs" />
+     <Compile Include="Assets\Scripts\Temp\TempTimeAttackGameManager.cs" />
+     <Compile Include="Assets\Scripts\Temp\TempTimeAttackTimeController.cs" />
      <Compile Include="Assets\Scripts\TimeAttackGame\TimeAttackGameManager.cs" />
      <Compile Include="Assets\Scripts\UI\AccuracyUIController.cs" />
      <Compile Include="Assets\Scripts\UI\Buttons\ArcadeButtonController.cs" />

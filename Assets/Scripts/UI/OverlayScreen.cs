@@ -62,6 +62,16 @@ public class OverlayScreen : MonoBehaviour {
 		ShowOverlayScreenWithText (s);
 	}
 
+	public void ShowTimeAttackEndGameOverlayScreen(){
+		string s = "TIME'S UP.\n" +
+		           "\n" +
+		           "Score: " + TempTimeAttackGameManager.instance.GetScore () + "\n" +
+		           "\n" +
+		           "Letters Cleared: " + TempTimeAttackGameManager.instance.GetLettersCleared () + "\n" +
+		           "Words Cleared: " + TempTimeAttackGameManager.instance.GetWordsCleared ();
+		ShowOverlayScreenWithText (s);
+	}
+
 	public static OverlayScreen GetInstance(){
 		if (instance == null)
 			instance = new OverlayScreen ();

@@ -11,3 +11,8 @@ Build/*
 *.userprefs
 
 save.json
+Assets/Scenes/Temp/*
+Assets/Scenes/Temp.meta
+Assets/Scripts/Temp.meta
+Assets/Scripts/Temp/TempPracticeEnemyController.cs
+Assets/Scripts/Temp/
