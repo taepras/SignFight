@@ -34,7 +34,9 @@ public class ItemController : ButtonController {
 		GUI.DrawTexture (
 			new Rect (
 				itemTrans [currentSkinIndex].position.x - 15,
-				-itemTrans [currentSkinIndex].position.y + Screen.height - 15, 50, 50
+				-itemTrans [currentSkinIndex].position.y + Screen.height - 15, 
+				80, 
+				80
 			), 
 			onSelectItemImg, ScaleMode.ScaleToFit
 		);

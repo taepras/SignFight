@@ -218,7 +218,6 @@ public class ArcadeGameManager : MonoBehaviour {
 		float rate = 1f;
 		float diff = 1 / (1 + Mathf.Exp (shift - combo / rate));
 		float t = maxTimePerLetter - diff * (maxTimePerLetter - minTimePerLetter);
-		print (t);
 		return t;
 	}
 }
