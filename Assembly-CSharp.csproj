@@ -45,7 +45,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\DangerBlinker.cs" />
      <Compile Include="Assets\Downloaded\ENTIGI\FantasyMonsterPack\Scripts\ShieldController.cs" />
      <Compile Include="Assets\Downloaded\FireExplosionVFX\Scripts\FxSplash.cs" />
      <Compile Include="Assets\Downloaded\FireExplosionVFX\Scripts\LaunchEffect.cs" />
@@ -121,7 +120,6 @@
      <Compile Include="Assets\LeapMotion\Scripts\VR\LeapVRCameraControl.cs" />
      <Compile Include="Assets\LeapMotion\Scripts\VR\LeapVRTemporalWarping.cs" />
      <Compile Include="Assets\LeapMotion\Scripts\VR\TemporalWarpingStatus.cs" />
-     <Compile Include="Assets\RoomSkinController.cs" />
      <Compile Include="Assets\Scripts\ArcadeGame\ArcadeGameManager.cs" />
      <Compile Include="Assets\Scripts\ArcadeGame\EnemyController.cs" />
      <Compile Include="Assets\Scripts\ArcadeGame\FireBallController.cs" />
@@ -135,6 +133,7 @@
      <Compile Include="Assets\Scripts\HandLetter.cs" />
      <Compile Include="Assets\Scripts\LetterController.cs" />
      <Compile Include="Assets\Scripts\PracticeGame\PracticeGameManager.cs" />
+     <Compile Include="Assets\Scripts\RoomSkinController.cs" />
      <Compile Include="Assets\Scripts\Temp\TempPracticeEnemyController.cs" />
      <Compile Include="Assets\Scripts\Temp\TempPracticeGameManager.cs" />
      <Compile Include="Assets\Scripts\Temp\TempTimeAttackGameManager.cs" />
@@ -154,9 +153,11 @@
      <Compile Include="Assets\Scripts\UI\ComboTextController.cs" />
      <Compile Include="Assets\Scripts\UI\CorrectTimeUIController.cs" />
      <Compile Include="Assets\Scripts\UI\CursorController.cs" />
+     <Compile Include="Assets\Scripts\UI\DangerBlinker.cs" />
      <Compile Include="Assets\Scripts\UI\GameItems\BigAttackItem.cs" />
      <Compile Include="Assets\Scripts\UI\GameItems\GameItemController.cs" />
      <Compile Include="Assets\Scripts\UI\GameItems\HPUpItem.cs" />
+     <Compile Include="Assets\Scripts\UI\HandAlert.cs" />
      <Compile Include="Assets\Scripts\UI\OverlayScreen.cs" />
      <Compile Include="Assets\Scripts\UI\ShopItems\ItemButtonTemplate.cs" />
      <Compile Include="Assets\Scripts\UI\ShopItems\ItemController.cs" />
