@@ -10,7 +10,7 @@ public class ButtonController : MonoBehaviour {
 
 	private float timeStartClick = 0;
 
-	[SerializeField] private Button button = null;
+	private Button button = null;
 
 	// Use this for initialization
 	void Start () {
@@ -19,11 +19,10 @@ public class ButtonController : MonoBehaviour {
 		clickSlider.value = 0;
 		timeStartClick = Time.time;
 		button.onClick.AddListener (OnClick);
+		AfterStart ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	protected virtual void AfterStart () {
 	}
 
 	void OnTriggerEnter2D (Collider2D other) {

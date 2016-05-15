@@ -14,8 +14,9 @@ public class ItemController : ButtonController {
 	private int[] price = {0, 300, 100, 100, 100, 100}; //still not sure about this
 
 	// Use this for initialization
-	void Start () {
-		money = 100;//GameStatus.instance.money;
+	protected override void AfterStart () {
+		GameStatus.Load ();
+		money = GameStatus.instance.money;
 		moneyText.text = "Money : " + money;
 		currentSkinIndex = 0;//GameStatus.instance.currentSkinIndex;
 		//unlockedSkin = GameStatus.instance.unlockedSkin;
@@ -30,7 +31,13 @@ public class ItemController : ButtonController {
 
 	void OnGUI(){
 		//draw mask on current skin
-		GUI.DrawTexture (new Rect(itemTrans[currentSkinIndex].position.x-15,-itemTrans[currentSkinIndex].position.y+ Screen.height-15,50,50), onSelectItemImg, ScaleMode.ScaleToFit);
+		GUI.DrawTexture (
+			new Rect (
+				itemTrans [currentSkinIndex].position.x - 15,
+				-itemTrans [currentSkinIndex].position.y + Screen.height - 15, 50, 50
+			), 
+			onSelectItemImg, ScaleMode.ScaleToFit
+		);
 
 		//draw price on loked skin
 		for (int i = 0; i < unlockedSkin.Length; i++) {

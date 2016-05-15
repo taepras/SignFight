@@ -23,6 +23,8 @@ public class GameStatus {
 
 	public static GameStatus instance;
 
+	private GameStatus () {}
+
 	public static void Save () {
 		string json = JsonUtility.ToJson (instance);
 		File.WriteAllText ("save.json", json);
