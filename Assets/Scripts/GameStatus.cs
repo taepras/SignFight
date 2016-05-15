@@ -15,6 +15,8 @@ public class GameStatus {
 
 	public int money;
 	public int currentSkinIndex = 0;
+	public Material currentSkinMaterial;
+	public bool[] unlockedSkin;
 
 	public static GameStatus instance;
 

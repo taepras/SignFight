@@ -6,24 +6,22 @@ public class ScrollController : MonoBehaviour {
 	public GameObject scrollbar;
 	public RectTransform panel;
 	public float speed = 1;
+	public Transform cursor;
 
 	private Scrollbar myscrollbar;
 
 	// Use this for initialization
 	void Start () {
 		myscrollbar = scrollbar.GetComponent<Scrollbar> ();
-		//print ("panel x = " + panel.position.x);
-		//print ("panel y = " + panel.position.y);
-		//print ("panel h = " + panel.rect.height);
-		//print ("panel w = " + panel.rect.width);
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//print (Input.mousePosition.x + "," + Input.mousePosition.y);
-		if (myscrollbar.value > 0 && Input.mousePosition.y < panel.position.y - panel.rect.height / 2) {
+		//Scroll up/down if input is at top/buttom
+		if (myscrollbar.value > 0 && cursor.position.y < panel.position.y - panel.rect.height / 2 && cursor.position.y > 0) {
 			myscrollbar.value -= 0.1f * speed;
-		} else if (myscrollbar.value < 1 && Input.mousePosition.y > panel.position.y + panel.rect.height / 2) {
+		} else if (myscrollbar.value < 1 && cursor.position.y > panel.position.y + panel.rect.height / 2 && cursor.position.y < Screen.height) {
 			myscrollbar.value += 0.1f * speed;
 		}
 		
