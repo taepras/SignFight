@@ -8,10 +8,13 @@ using UnityEngine;
 
 [Serializable]
 public class GameStatus {
-	public int highScore;
-	public int highCombo;
-	public int highLettersCleared;
-	public int highEnemiesKilled;
+	public int arcadeHighScore;
+	public int arcadeHighCombo;
+	public int arcadeHighLettersCleared;
+	public int arcadeHighEnemiesKilled;
+
+	public int timeAttackHighScore;
+	public int timeAttackHighLettersCleared;
 
 	public int money;
 	public int currentSkinIndex = 0;
