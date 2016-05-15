@@ -54,11 +54,25 @@ public class OverlayScreen : MonoBehaviour {
 		string s = "GAME OVER\n" +
 		           "\n" +
 		           "Score: " + ArcadeGameManager.instance.GetScore () + "\n" +
+		           (ArcadeGameManager.instance.GetScore () >= GameStatus.instance.arcadeHighScore ? "HIGH SCORE!\n" : "") +
 		           "\n" +
-		           "Letters Cleared: " + ArcadeGameManager.instance.GetLettersCleared () + "\n" +
+		           "Letters Cleared: " + ArcadeGameManager.instance.GetLettersCleared () + (ArcadeGameManager.instance.GetLettersCleared () >= GameStatus.instance.arcadeHighLettersCleared ? " NEW HIGH" : "") + "\n" +
 		           "Words Cleared: " + ArcadeGameManager.instance.GetWordsCleared () + "\n" +
-		           "Enemies Killed: " + ArcadeGameManager.instance.GetEnemiesKilled () + "\n" +
-		           "Longest Combo: " + ArcadeGameManager.instance.GetMaxCombo () + "\n";
+		           "Enemies Killed: " + ArcadeGameManager.instance.GetEnemiesKilled () + (ArcadeGameManager.instance.GetEnemiesKilled () >= GameStatus.instance.arcadeHighEnemiesKilled ? " NEW HIGH" : "") + "\n" +
+		           "Longest Combo: " + ArcadeGameManager.instance.GetMaxCombo () + (ArcadeGameManager.instance.GetMaxCombo () >= GameStatus.instance.arcadeHighCombo ? " NEW HIGH" : "") + "\n" +
+		           "\n" +
+		           "Money Gained: +" + ArcadeGameManager.instance.GetScore () + " = " + GameStatus.instance.money;
+		ShowOverlayScreenWithText (s);
+	}
+
+	public void ShowTimeAttackEndGameOverlayScreen(){
+		string s = "TIME'S UP.\n" +
+		           "\n" +
+		           "Score: " + TempTimeAttackGameManager.instance.GetScore () + "\n" +
+		           (TempTimeAttackGameManager.instance.GetScore () >= GameStatus.instance.timeAttackHighScore ? "HIGH SCORE!\n" : "") +
+		           "\n" +
+		           "Letters Cleared: " + TempTimeAttackGameManager.instance.GetLettersCleared () + (TempTimeAttackGameManager.instance.GetLettersCleared () >= GameStatus.instance.timeAttackHighLettersCleared ? " NEW HIGH" : "") + "\n" +
+		           "Words Cleared: " + TempTimeAttackGameManager.instance.GetWordsCleared ();
 		ShowOverlayScreenWithText (s);
 	}
 

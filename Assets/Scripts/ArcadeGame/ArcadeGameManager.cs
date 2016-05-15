@@ -49,6 +49,8 @@ public class ArcadeGameManager : MonoBehaviour {
 	private float uiStartHideTime = 0;
 	private float uiHideTime = 0;
 
+	private bool moneyAdded = false;
+
 	// Use this for initialization
 	void Start () {
 
@@ -123,14 +125,18 @@ public class ArcadeGameManager : MonoBehaviour {
 			overlayScreen.ShowEndGameOverlayScreen ();
 			
 			// save player high stats
-			GameStatus.instance.highScore = Mathf.Max (GameStatus.instance.highScore, CalculateScore());
-			GameStatus.instance.highCombo = Mathf.Max (GameStatus.instance.highCombo, maxCombo);
-			GameStatus.instance.highLettersCleared = Mathf.Max (GameStatus.instance.highLettersCleared, lettersCleared);
-			GameStatus.instance.highEnemiesKilled = Mathf.Max (GameStatus.instance.highEnemiesKilled, enemiesKilled);
-			GameStatus.instance.money += CalculateScore ();
+			GameStatus.instance.arcadeHighScore = Mathf.Max (GameStatus.instance.arcadeHighScore, CalculateScore());
+			GameStatus.instance.arcadeHighCombo = Mathf.Max (GameStatus.instance.arcadeHighCombo, maxCombo);
+			GameStatus.instance.arcadeHighLettersCleared = Mathf.Max (GameStatus.instance.arcadeHighLettersCleared, lettersCleared);
+			GameStatus.instance.arcadeHighEnemiesKilled = Mathf.Max (GameStatus.instance.arcadeHighEnemiesKilled, enemiesKilled);
+
+			if (!moneyAdded) {
+				GameStatus.instance.money += CalculateScore ();
+				moneyAdded = true;
+			}
 			GameStatus.Save ();
 		} else {
-			float p = Random.Range (0f, 1000f) * Mathf.Pow(player.GetHealthPercentage () / 100f, 2);
+			float p = Random.Range (0f, 4000f) * Mathf.Pow(player.GetHealthPercentage () / 100f, 2);
 			if (p < 1f && FindObjectOfType<HPUpItem> () == null) {
 				Instantiate (HPUpItemPrefab);
 			}

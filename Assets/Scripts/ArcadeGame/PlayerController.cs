@@ -8,17 +8,28 @@ public class PlayerController : MonoBehaviour {
 	public Slider healthSlider;
 	public EnemyController enemy;
 	public Rigidbody fireballPrefab;
+	public Image dangerOverlay;
 
 	private float health;
 
 	// Use this for initialization
 	void Start () {
 		health = maxHealth;
+		if (dangerOverlay != null)
+			dangerOverlay.color = new Color (1f, 1f, 1f, 0f);
 	}
 
 	// Update is called once per frame
 	void Update () {
-
+		if (dangerOverlay != null) {
+			if (health <= 0.2 * maxHealth) {
+				dangerOverlay.color = new Color (1f, 1f, 1f, 1f);
+			} else if (health <= 0.3f * maxHealth) {
+				dangerOverlay.color = new Color (1f, 1f, 1f, 0.3f);
+			} else {
+				dangerOverlay.color = new Color (1f, 1f, 1f, 0f);
+			}
+		}
 	}
 
 	public void TakeDamage(float amount){
@@ -26,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 			return;
 		}
 		health -= amount;
+		health = Mathf.Max (0, health);
 		healthSlider.value = health * 100 / maxHealth;
 	}
 

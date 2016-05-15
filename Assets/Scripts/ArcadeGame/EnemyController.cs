@@ -28,7 +28,7 @@ public class EnemyController : MonoBehaviour {
 		transform.rotation = Quaternion.RotateTowards (transform.rotation, Quaternion.Euler (0f, 180f, 0f), 10);
 	}
 
-	public void TakeDamage(float amount){
+	public virtual void TakeDamage(float amount){
 		health -= amount;
 		healthSlider.value = health * 100 / maxHealth;
 		if (health <= 0) {
