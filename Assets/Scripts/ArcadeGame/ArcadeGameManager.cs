@@ -130,6 +130,8 @@ public class ArcadeGameManager : MonoBehaviour {
 			GameStatus.instance.arcadeHighEnemiesKilled = Mathf.Max (GameStatus.instance.arcadeHighEnemiesKilled, enemiesKilled);
 
 			if (!moneyAdded) {
+				GameStatus.instance.arcadeEnemiesKilled += enemiesKilled;
+				GameStatus.instance.arcadeLettersCleared += lettersCleared;
 				GameStatus.instance.money += CalculateScore ();
 				moneyAdded = true;
 			}

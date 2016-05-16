@@ -12,9 +12,13 @@ public class GameStatus {
 	public int arcadeHighCombo;
 	public int arcadeHighLettersCleared;
 	public int arcadeHighEnemiesKilled;
+	public int arcadeLettersCleared;
+	public int arcadeEnemiesKilled;
 
 	public int timeAttackHighScore;
 	public int timeAttackHighLettersCleared;
+	public int timeAttackScore;
+	public int timeAttackLettersCleared;
 
 	public int money;
 	public int currentSkinIndex;

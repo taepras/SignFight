@@ -104,6 +104,11 @@ public class ItemController : ButtonController {
 			currentSkinIndex = index;
 			currentSkinMaterial = m;
 			RoomSkinController.instance.SetMaterial (index);
+			GameStatus.instance.currentSkinIndex = currentSkinIndex;
+			GameStatus.instance.currentSkinMaterial = currentSkinMaterial;
+			GameStatus.instance.money = money;
+			GameStatus.instance.unlockedSkin = unlockedSkin;
+			GameStatus.Save ();
 		}
 	}
 
