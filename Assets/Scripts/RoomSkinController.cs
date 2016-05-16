@@ -7,6 +7,7 @@ public class RoomSkinController : MonoBehaviour {
 
 	public Material[] materials;
 
+	private int CurrentMaterialIndex;
 	private Renderer[] renderers;
 
 	// Use this for initialization
@@ -14,9 +15,10 @@ public class RoomSkinController : MonoBehaviour {
 		instance = this;
 
 		GameStatus.Load ();
+		CurrentMaterialIndex = GameStatus.instance.currentSkinIndex;
 
 		renderers = GetComponentsInChildren<Renderer> ();
-		SetMaterial (GameStatus.instance.currentSkinMaterial);
+		SetMaterial (CurrentMaterialIndex);
 	}
 	
 	// Update is called once per frame
@@ -24,10 +26,10 @@ public class RoomSkinController : MonoBehaviour {
 	
 	}
 
-	public void SetMaterial (Material m) {
+	public void SetMaterial (int index) {
 		renderers = GetComponentsInChildren<Renderer> ();
 		foreach (Renderer r in renderers) {
-			r.material = m;
+			r.material = materials[index];
 		}
 	}
 }

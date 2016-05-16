@@ -35,8 +35,8 @@ public class FireBallController : MonoBehaviour {
 	void OnTriggerEnter (Collider other) {
 
 		EnemyController enemy = other.GetComponent<EnemyController> ();
-		if (enemy == null)
-			enemy = other.GetComponent<TempPracticeEnemyController> ();
+		//if (enemy == null)
+		//	enemy = other.GetComponent<TempPracticeEnemyController> ();
 		if (enemy != null) {			
 			enemy.TakeDamage (damage);
 		}
