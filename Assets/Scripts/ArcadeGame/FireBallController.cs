@@ -49,7 +49,11 @@ public class FireBallController : MonoBehaviour {
 		explosionParticles.transform.position = transform.position;
 		//explosionParticles.gameObject.SetActive (true);
 		explosionParticles.Play ();
-		Destroy (explosionParticles.gameObject, explosionParticles.duration);
+		explosionParticles.GetComponent<AudioSource> ().Play ();
+		Destroy (
+			explosionParticles.gameObject, 
+			Mathf.Max(explosionParticles.duration, explosionParticles.GetComponent<AudioSource> ().clip.length)
+		);
 		Destroy (gameObject);
 	}
 

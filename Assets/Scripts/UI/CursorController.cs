@@ -28,15 +28,26 @@ public class CursorController : MonoBehaviour {
 		handFound = false;
 
 		Frame frame = provider.CurrentFrame;
+
 		if (frame.Hands.Count > 0) {
+			
 			Hand hand = frame.Hands [0];
 			handFound = true;
+
+			Vector3 handPosition = hand.PalmPosition.ToUnity ();
+			Vector3 handPositionOnScreen = FindObjectOfType<Camera> ().WorldToScreenPoint (handPosition);
+
+			cursor.position = handPositionOnScreen;
+			cursor.gameObject.SetActive (true);
+
+			/*
 			Vector3 palmPosition = hand.PalmPosition.ToUnity () - provider.transform.position;
 			float x = (Quaternion.Inverse(provider.transform.rotation) * palmPosition).x + handHorizontalOffset * (hand.IsLeft ? -1 : 1);
 			float y = (Quaternion.Inverse (provider.transform.rotation) * palmPosition).z;
 			float z = -3;
 			cursor.position = new Vector3 (x * cursorSensitivity, y * cursorSensitivity, z);
 			cursor.gameObject.SetActive (true);
+			*/
 			if (hand.GrabStrength > grabThreshold) {
 				grabbing = true;
 				cursor.gameObject.GetComponent<UnityEngine.UI.Image> ().color = new Color (0f, 1f, 1f, 0.9f);
