@@ -14,9 +14,6 @@ public class DangerBlinker : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float time = TimeAttackGameManager.instance.GetTimeRemaining ();
-
-		print (time);
-
 		float freq = 0f;
 		if (time <= 10f) {
 			freq = 10f;

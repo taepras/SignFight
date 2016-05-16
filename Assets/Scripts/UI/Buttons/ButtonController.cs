@@ -12,6 +12,7 @@ public class ButtonController : MonoBehaviour {
 
 	private Button button = null;
 	private AudioSource selectAudio;
+	private bool clicked = false;
 
 	// Use this for initialization
 	void Start () {
@@ -38,9 +39,10 @@ public class ButtonController : MonoBehaviour {
 		CursorController cursor = other.GetComponent<CursorController> ();
 		if (cursor != null && cursor.IsGrabbing ()) {
 			clickSlider.value = (Time.time - timeStartClick) / timeToClick;
-			if (Time.time - timeStartClick >= timeToClick) {
-				timeStartClick = Time.time;
-				selectAudio.Play ();
+			if (Time.time - timeStartClick >= timeToClick && !clicked) {
+				//timeStartClick = Time.time;
+				clicked = true;
+				clickSlider.value = 1f;
 				ClickAction ();
 			}
 		} else {
@@ -60,10 +62,12 @@ public class ButtonController : MonoBehaviour {
 			GetComponent<Image> ().color = new Color (1f, 1f, 1f, 1f);
 			timeStartClick = Time.time;
 			clickSlider.value = 0;
+			clicked = false;
 		}
 	}
 
 	protected void ClickAction () {
+		selectAudio.Play ();
 		StartCoroutine (ExecuteClick());
 	}
 

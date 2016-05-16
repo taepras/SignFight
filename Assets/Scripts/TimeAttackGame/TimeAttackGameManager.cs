@@ -11,6 +11,7 @@ public class TimeAttackGameManager : MonoBehaviour {
 	public float maxTimePerLetter = 3f;
 	public float minTimePerLetter = 1.5f;
 	public Text timeText;
+	public Text scoreText;
 	public WordController wordController;
 	public TimeController timeController;
 
@@ -103,6 +104,7 @@ public class TimeAttackGameManager : MonoBehaviour {
 		timeLeft = timeLimit - (Time.time - stTime);
 
 		if (timeLeft <= 0) {
+			timeLeft = 0;
 			HideUI (100000f);
 			overlayScreen.ShowTimeAttackEndGameOverlayScreen();
 
@@ -112,17 +114,11 @@ public class TimeAttackGameManager : MonoBehaviour {
 			GameStatus.instance.timeAttackHighWordCleared = Mathf.Max (GameStatus.instance.timeAttackHighWordCleared, GetWordsCleared());
 
 			GameStatus.Save ();
-		} else {
-			timeText.text = FormatTime(timeLeft);
-		}
+		} 
+
+		timeText.text = FormatTime(timeLeft);
 	
-
-
-
-
-
-	
-
+		scoreText.text = CalculateScore ().ToString ();
 		DisplayUI ();
 	}
 

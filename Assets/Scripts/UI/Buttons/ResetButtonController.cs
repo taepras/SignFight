@@ -4,6 +4,7 @@ using System.Collections;
 public class ResetButtonController : ButtonController {
 
 	protected override void OnClick () {
-		Application.LoadLevel (Application.loadedLevel);
+		print (Application.loadedLevelName);
+		Application.LoadLevel (Application.loadedLevelName);
 	}
 }
