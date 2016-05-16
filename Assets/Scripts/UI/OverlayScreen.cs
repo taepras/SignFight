@@ -68,11 +68,11 @@ public class OverlayScreen : MonoBehaviour {
 	public void ShowTimeAttackEndGameOverlayScreen(){
 		string s = "TIME'S UP.\n" +
 		           "\n" +
-		           "Score: " + TempTimeAttackGameManager.instance.GetScore () + "\n" +
-		           (TempTimeAttackGameManager.instance.GetScore () >= GameStatus.instance.timeAttackHighScore ? "HIGH SCORE!\n" : "") +
+		           "Score: " + TimeAttackGameManager.instance.GetScore () + "\n" +
+		           (TimeAttackGameManager.instance.GetScore () >= GameStatus.instance.timeAttackHighScore ? "HIGH SCORE!\n" : "") +
 		           "\n" +
-		           "Letters Cleared: " + TempTimeAttackGameManager.instance.GetLettersCleared () + (TempTimeAttackGameManager.instance.GetLettersCleared () >= GameStatus.instance.timeAttackHighLettersCleared ? " NEW HIGH" : "") + "\n" +
-		           "Words Cleared: " + TempTimeAttackGameManager.instance.GetWordsCleared ();
+		           "Letters Cleared: " + TimeAttackGameManager.instance.GetLettersCleared () + (TimeAttackGameManager.instance.GetLettersCleared () >= GameStatus.instance.timeAttackHighLettersCleared ? " NEW HIGH" : "") + "\n" +
+		           "Words Cleared: " + TimeAttackGameManager.instance.GetWordsCleared ();
 		ShowOverlayScreenWithText (s);
 	}
 

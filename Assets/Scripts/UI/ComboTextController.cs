@@ -13,7 +13,7 @@ public class ComboTextController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		int combo = ArcadeGameManager.instance.GetCombo ();
+		int combo = TimeAttackGameManager.instance.GetCombo ();
 		if (combo <= 0)
 			t.text = "";
 		else
