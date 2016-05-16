@@ -46,7 +46,6 @@ public class ArcadeGameManager : MonoBehaviour {
 	private int lettersClearedThisWord = 0;
 	private bool bigAttackShown = false;
 
-	private float startTime = 0;
 	private float uiStartHideTime = 0;
 	private float uiHideTime = 0;
 
@@ -64,6 +63,7 @@ public class ArcadeGameManager : MonoBehaviour {
 		CreateNewEnemy ();
 		HideUI (startDelay);
 		timeController.SetTimePerLetter (maxTimePerLetter);
+		timeController.ResetTimer ();
 		if (instance == null)
 			instance = this;
 		else

@@ -20,7 +20,7 @@ public class ButtonController : MonoBehaviour {
 		clickSlider = transform.FindChild ("ClickSlider").GetComponent<Slider> ();
 		clickSlider.value = 0;
 		timeStartClick = Time.time;
-		button.onClick.AddListener (OnClick);
+		button.onClick.AddListener (ClickAction);
 		AfterStart ();
 	}
 
@@ -29,7 +29,7 @@ public class ButtonController : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other) {
 		CursorController cursor = other.GetComponent<CursorController> ();
-		if (cursor != null) {
+		if (cursor != null && cursor.IsActive ()) {
 			GetComponent<Image> ().color = new Color (0.4f, 0.4f, 0.4f, 1f);
 		}
 	}
@@ -41,7 +41,7 @@ public class ButtonController : MonoBehaviour {
 			if (Time.time - timeStartClick >= timeToClick) {
 				timeStartClick = Time.time;
 				selectAudio.Play ();
-				StartCoroutine (ExecuteClick());
+				ClickAction ();
 			}
 		} else {
 			timeStartClick = Time.time;
@@ -61,6 +61,10 @@ public class ButtonController : MonoBehaviour {
 			timeStartClick = Time.time;
 			clickSlider.value = 0;
 		}
+	}
+
+	protected void ClickAction () {
+		StartCoroutine (ExecuteClick());
 	}
 
 	virtual protected void OnClick () {

@@ -56,10 +56,10 @@ public class OverlayScreen : MonoBehaviour {
 		           "Score: " + ArcadeGameManager.instance.GetScore () + "\n" +
 		           (ArcadeGameManager.instance.GetScore () >= GameStatus.instance.arcadeHighScore ? "HIGH SCORE!\n" : "") +
 		           "\n" +
-		           "Letters Cleared: " + ArcadeGameManager.instance.GetLettersCleared () + (ArcadeGameManager.instance.GetLettersCleared () >= GameStatus.instance.arcadeHighLettersCleared ? " NEW HIGH" : "") + "\n" +
+		           "Letters Cleared: " + ArcadeGameManager.instance.GetLettersCleared () + "\n" + //(ArcadeGameManager.instance.GetLettersCleared () >= GameStatus.instance.arcadeHighLettersCleared ? " NEW HIGH" : "") + "\n" +
 		           "Words Cleared: " + ArcadeGameManager.instance.GetWordsCleared () + "\n" +
-		           "Enemies Killed: " + ArcadeGameManager.instance.GetEnemiesKilled () + (ArcadeGameManager.instance.GetEnemiesKilled () >= GameStatus.instance.arcadeHighEnemiesKilled ? " NEW HIGH" : "") + "\n" +
-		           "Longest Combo: " + ArcadeGameManager.instance.GetMaxCombo () + (ArcadeGameManager.instance.GetMaxCombo () >= GameStatus.instance.arcadeHighCombo ? " NEW HIGH" : "") + "\n" +
+		           "Enemies Killed: " + ArcadeGameManager.instance.GetEnemiesKilled () + "\n" + //(ArcadeGameManager.instance.GetEnemiesKilled () >= GameStatus.instance.arcadeHighEnemiesKilled ? " NEW HIGH" : "") + "\n" +
+		           "Longest Combo: " + ArcadeGameManager.instance.GetMaxCombo () + "\n" + //(ArcadeGameManager.instance.GetMaxCombo () >= GameStatus.instance.arcadeHighCombo ? " NEW HIGH" : "") + "\n" +
 		           "\n" +
 		           "Money Gained: +" + ArcadeGameManager.instance.GetScore () + " = " + GameStatus.instance.money;
 		ShowOverlayScreenWithText (s);
@@ -71,8 +71,9 @@ public class OverlayScreen : MonoBehaviour {
 		           "Score: " + TimeAttackGameManager.instance.GetScore () + "\n" +
 		           (TimeAttackGameManager.instance.GetScore () >= GameStatus.instance.timeAttackHighScore ? "HIGH SCORE!\n" : "") +
 		           "\n" +
-		           "Letters Cleared: " + TimeAttackGameManager.instance.GetLettersCleared () + (TimeAttackGameManager.instance.GetLettersCleared () >= GameStatus.instance.timeAttackHighLettersCleared ? " NEW HIGH" : "") + "\n" +
-		           "Words Cleared: " + TimeAttackGameManager.instance.GetWordsCleared ();
+		           "Letters Cleared: " + TimeAttackGameManager.instance.GetLettersCleared () + "\n" + //(TimeAttackGameManager.instance.GetLettersCleared () >= GameStatus.instance.timeAttackHighLettersCleared ? " NEW HIGH" : "") + "\n" +
+		           "Words Cleared: " + TimeAttackGameManager.instance.GetWordsCleared () + "\n" +
+		           "Longest Combo: " + TimeAttackGameManager.instance.GetMaxCombo ();
 		ShowOverlayScreenWithText (s);
 	}
 

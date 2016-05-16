@@ -72,4 +72,8 @@ public class CursorController : MonoBehaviour {
 	public void ForceLeftHandOnly (bool setting) {
 		leftHandOnly = setting;
 	}
+
+	public bool IsActive () {
+		return handFound;
+	}
 }

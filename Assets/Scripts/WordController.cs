@@ -27,6 +27,7 @@ public class WordController : MonoBehaviour {
 		GetNewWord ();
 		wordsToBeScored = 0;
 		correctAudio = GetComponent<AudioSource> ();
+		keyHit = false;
 	}
 	
 	// Update is called once per frame
@@ -60,7 +61,7 @@ public class WordController : MonoBehaviour {
 		if (correct) {
 			correctAudio.Play ();
 		}
-		return NextChar ();;
+		return NextChar ();
 	}
 
 	public void SetThisCharCorrect (bool correct) {

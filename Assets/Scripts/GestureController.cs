@@ -24,6 +24,7 @@ public class GestureController : MonoBehaviour {
 		provider = FindObjectOfType<LeapProvider> () as LeapProvider;
 		LoadHandLetters ();
 		normalizedFingerPositions = new Vector3[5];
+		timeStartCorrect = Time.time;
 	}
 	
 	// Update is called once per frame

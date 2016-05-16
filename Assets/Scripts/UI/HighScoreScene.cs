@@ -13,6 +13,7 @@ public class HighScoreScene : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		print ("!!!!!");
 		GameStatus.Load ();
 
 		bool[] unlockedSkin = GameStatus.instance.unlockedSkin;
@@ -20,20 +21,15 @@ public class HighScoreScene : MonoBehaviour {
 		for (int i = 0; i < unlockedSkin.Length; i++)
 			if (unlockedSkin [i])
 				unlockedSkinCount++;
+
 		unlockNumber.text = unlockedSkinCount + "/9";
 
 		timeAttackLetterCleard.text = "Letters Cleared: " + GameStatus.instance.timeAttackHighLettersCleared;
-
 		timeAttackHighestScore.text = "Highest Score: " + GameStatus.instance.timeAttackHighScore;
-
 		ArcadeHighestScore.text = "Highest Score: " + GameStatus.instance.arcadeHighScore;
-
 		ArcadeHighestCombo.text = "Highest Combo: " + GameStatus.instance.arcadeHighCombo;
-
 		ArcadeLetterCleared.text = "Letters Cleared: " + GameStatus.instance.arcadeLettersCleared;
-
 		ArcadeEnemiesKilled.text = "Enemies Killed: " + GameStatus.instance.arcadeEnemiesKilled;
-	
 	}
 	
 	// Update is called once per frame

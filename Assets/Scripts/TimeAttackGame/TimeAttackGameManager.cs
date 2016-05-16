@@ -6,6 +6,7 @@ public class TimeAttackGameManager : MonoBehaviour {
 
 	public static TimeAttackGameManager instance = null;
 
+	public float timeLimit = 60f;
 	public float startDelay = 4f;
 	public float maxTimePerLetter = 3f;
 	public float minTimePerLetter = 1.5f;
@@ -18,23 +19,14 @@ public class TimeAttackGameManager : MonoBehaviour {
 
 	public float wordPauseTime = 0f;
 
-
-	public GameObject HPUpItemPrefab;
-	public GameObject BigAttackItemPrefab;
-
-	// TODO move to, say, player controller?
-	public Rigidbody fireballPrefab;
-
 	public int scorePerLetter = 1;
 	public int scorePerWord = 5;
-	public int comboToActivateBigAttack = 20;
 
 	// scoring
 	private int lettersCleared = 0;
 	private int lettersMissed = 0;
 	private int wordsCleared = 0;
 	private int wordsMissed = 0;
-	private int enemiesKilled = 0;
 	private int combo;
 	private int maxCombo = 0;
 
@@ -50,7 +42,7 @@ public class TimeAttackGameManager : MonoBehaviour {
 
 	private float stTime;
 
-	private int timeNow;
+	private float timeLeft;
 
 	// Use this for initialization
 	void Start () {
@@ -68,7 +60,7 @@ public class TimeAttackGameManager : MonoBehaviour {
 			instance = this;
 		else
 			Destroy (this);
-		timeText.text = "60";
+		timeText.text = "60.00";
 		stTime = Time.time;
 	}
 	
@@ -88,10 +80,6 @@ public class TimeAttackGameManager : MonoBehaviour {
 				lettersClearedThisWord++;
 				combo++;
 				maxCombo = Mathf.Max (combo, maxCombo);
-				if (combo > 0 && combo % comboToActivateBigAttack == 0 && FindObjectOfType<BigAttackItem>() == null) {
-					Instantiate (BigAttackItemPrefab);
-					bigAttackShown = true;
-				}
 				isCorrectChar = true;
 			}
 
@@ -102,7 +90,6 @@ public class TimeAttackGameManager : MonoBehaviour {
 			if (isWordFinished) {
 				if(lettersClearedThisWord > 0)
 
-
 				lettersClearedThisWord = 0;
 				if (hasMissedThisWord)
 					wordsMissed++;
@@ -112,11 +99,10 @@ public class TimeAttackGameManager : MonoBehaviour {
 				HideUI (wordPauseTime);
 			}
 		}
+			
+		timeLeft = timeLimit - (Time.time - stTime);
 
-
-		timeNow = (int) (61f - (Time.time - stTime));
-
-		if (timeNow < 0) {
+		if (timeLeft <= 0) {
 			HideUI (100000f);
 			overlayScreen.ShowTimeAttackEndGameOverlayScreen();
 
@@ -127,7 +113,7 @@ public class TimeAttackGameManager : MonoBehaviour {
 
 			GameStatus.Save ();
 		} else {
-			timeText.text = timeNow.ToString();
+			timeText.text = FormatTime(timeLeft);
 		}
 	
 
@@ -161,16 +147,16 @@ public class TimeAttackGameManager : MonoBehaviour {
 		uiStartHideTime = Time.time;
 	}
 
-
-
-
-
 	public int GetCombo () {
 		return combo;
 	}
 
-	public int GetTimeRemaining () {
-		return timeNow;
+	public float GetTimeRemaining () {
+		return timeLeft;
+	}
+
+	public float GetTimeLimit () {
+		return timeLimit;
 	}
 
 	public int GetMaxCombo () {
@@ -189,15 +175,19 @@ public class TimeAttackGameManager : MonoBehaviour {
 		return wordsCleared;
 	}
 
-	public int GetEnemiesKilled(){
-		return enemiesKilled;
-	}
-
 	private float GetTimePerLetterFromCombo (int combo) {
 		float shift = 4f;
 		float rate = 1f;
 		float diff = 1 / (1 + Mathf.Exp (shift - combo / rate));
 		float t = maxTimePerLetter - diff * (maxTimePerLetter - minTimePerLetter);
 		return t;
+	}
+
+	private string FormatTime (float time) {
+		int s = (int)time;
+		int c = (int)(time * 100) % 100;
+		string ss = s >= 10 ? s.ToString() : "0" + s.ToString();
+		string cc = c >= 10 ? c.ToString() : "0" + c.ToString();
+		return ss + "." + cc;
 	}
 }
