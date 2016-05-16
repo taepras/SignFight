@@ -139,16 +139,13 @@
      <Compile Include="Assets\Scripts\Temp\TempTimeAttackTimeController.cs" />
      <Compile Include="Assets\Scripts\TimeAttackGame\TimeAttackGameManager.cs" />
      <Compile Include="Assets\Scripts\UI\AccuracyUIController.cs" />
-     <Compile Include="Assets\Scripts\UI\Buttons\ArcadeButtonController.cs" />
      <Compile Include="Assets\Scripts\UI\Buttons\ButtonController.cs" />
+     <Compile Include="Assets\Scripts\UI\Buttons\ChangePageButtonController.cs" />
      <Compile Include="Assets\Scripts\UI\Buttons\ExitButtonController.cs" />
-     <Compile Include="Assets\Scripts\UI\Buttons\PracticeButtonController.cs" />
-     <Compile Include="Assets\Scripts\UI\Buttons\PracticeButtonCtrl.cs" />
      <Compile Include="Assets\Scripts\UI\Buttons\QuitButtonController.cs" />
      <Compile Include="Assets\Scripts\UI\Buttons\ResetButtonController.cs" />
      <Compile Include="Assets\Scripts\UI\Buttons\SampleButtonController.cs" />
      <Compile Include="Assets\Scripts\UI\Buttons\ShopButtonController.cs" />
-     <Compile Include="Assets\Scripts\UI\Buttons\TimeAttackButtonController.cs" />
      <Compile Include="Assets\Scripts\UI\ComboTextController.cs" />
      <Compile Include="Assets\Scripts\UI\CorrectTimeUIController.cs" />
      <Compile Include="Assets\Scripts\UI\CursorController.cs" />
