@@ -13,8 +13,7 @@ public class DangerBlinker : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		/*
-		float time = TempTimeAttackGameManager.instance.GetTimeRemaining ();
+/*		float time = TempTimeAttackGameManager.instance.GetTimeRemaining ();
 		float freq = 0f;
 		if (time <= 10f) {
 			freq = 10f;
@@ -27,7 +26,6 @@ public class DangerBlinker : MonoBehaviour {
 			image.color = new Color (1f, 1f, 1f, op);
 		} else {
 			image.color = new Color (1f, 1f, 1f, 0f);
-		}
-		*/
+		}*/
 	}
 }

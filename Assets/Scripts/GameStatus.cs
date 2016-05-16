@@ -17,8 +17,7 @@ public class GameStatus {
 
 	public int timeAttackHighScore;
 	public int timeAttackHighLettersCleared;
-	public int timeAttackScore;
-	public int timeAttackLettersCleared;
+	public int timeAttackHighWordCleared;
 
 	public int money;
 	public int currentSkinIndex;
