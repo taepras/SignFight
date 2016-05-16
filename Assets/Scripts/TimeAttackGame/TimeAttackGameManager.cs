@@ -48,19 +48,17 @@ public class TimeAttackGameManager : MonoBehaviour {
 
 	private bool moneyAdded = false;
 
-	private float stTime = Time.time;
+	private float stTime;
 
 	private int timeNow;
 
 	// Use this for initialization
 	void Start () {
 
-		overlayScreen.ShowOverlayScreenWithText ("Survive!", startDelay - 1f);
+		overlayScreen.ShowOverlayScreenWithText ("Get as many words as possible\nIN 60 SECONDS!", startDelay - 1f);
 
 		// TODO remove this test
-
-			GameStatus.Load ();
-
+		GameStatus.Load ();
 
 		// TODO count down before start
 		uiText.text = "";
@@ -71,7 +69,7 @@ public class TimeAttackGameManager : MonoBehaviour {
 		else
 			Destroy (this);
 		timeText.text = "60";
-
+		stTime = Time.time;
 	}
 	
 	// Update is called once per frame
@@ -118,20 +116,18 @@ public class TimeAttackGameManager : MonoBehaviour {
 
 		timeNow = (int) (61f - (Time.time - stTime));
 
-		if (timeNow <= 57) {
+		if (timeNow < 0) {
 			HideUI (100000f);
-			//overlayScreen.ShowTimeAttackEndGameOverlayScreen();
+			overlayScreen.ShowTimeAttackEndGameOverlayScreen();
 
 			// save player high stats
-			/*GameStatus.instance.timeAttackHighScore = Mathf.Max (GameStatus.instance.timeAttackHighScore, CalculateScore());
+			GameStatus.instance.timeAttackHighScore = Mathf.Max (GameStatus.instance.timeAttackHighScore, CalculateScore());
 			GameStatus.instance.timeAttackHighLettersCleared = Mathf.Max (GameStatus.instance.timeAttackHighLettersCleared, GetLettersCleared());
 			GameStatus.instance.timeAttackHighWordCleared = Mathf.Max (GameStatus.instance.timeAttackHighWordCleared, GetWordsCleared());
 
-
-			GameStatus.Save ();*/
+			GameStatus.Save ();
 		} else {
 			timeText.text = timeNow.ToString();
-
 		}
 	
 

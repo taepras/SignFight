@@ -66,7 +66,6 @@ public class OverlayScreen : MonoBehaviour {
 	}
 
 	public void ShowTimeAttackEndGameOverlayScreen(){
-		/*
 		string s = "TIME'S UP.\n" +
 		           "\n" +
 		           "Score: " + TimeAttackGameManager.instance.GetScore () + "\n" +
@@ -75,7 +74,6 @@ public class OverlayScreen : MonoBehaviour {
 		           "Letters Cleared: " + TimeAttackGameManager.instance.GetLettersCleared () + (TimeAttackGameManager.instance.GetLettersCleared () >= GameStatus.instance.timeAttackHighLettersCleared ? " NEW HIGH" : "") + "\n" +
 		           "Words Cleared: " + TimeAttackGameManager.instance.GetWordsCleared ();
 		ShowOverlayScreenWithText (s);
-		*/
 	}
 
 	public static OverlayScreen GetInstance(){

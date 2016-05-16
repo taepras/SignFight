@@ -22,7 +22,7 @@ public class HighScoreScene : MonoBehaviour {
 				unlockedSkinCount++;
 		unlockNumber.text = unlockedSkinCount + "/9";
 
-		timeAttackLetterCleard.text = "Letters Cleared: " + GameStatus.instance.timeAttackLettersCleared;
+		timeAttackLetterCleard.text = "Letters Cleared: " + GameStatus.instance.timeAttackHighLettersCleared;
 
 		timeAttackHighestScore.text = "Highest Score: " + GameStatus.instance.timeAttackHighScore;
 
