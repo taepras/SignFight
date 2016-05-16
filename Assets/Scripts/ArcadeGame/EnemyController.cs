@@ -65,7 +65,9 @@ public class EnemyController : MonoBehaviour {
 		a.SetTrigger ("DeathTrigger");
 		ParticleSystem explosionParticles = Instantiate (explosionPrefab).GetComponent<ParticleSystem> ();
 		explosionParticles.Play ();
-		Destroy (explosionParticles.gameObject, explosionParticles.duration);
+		AudioSource aus = explosionParticles.GetComponent<AudioSource> ();
+		aus.Play ();
+		Destroy (explosionParticles.gameObject, Mathf.Max(explosionParticles.duration, aus.clip.length));
 		Destroy (gameObject, 0f);
 	}
 

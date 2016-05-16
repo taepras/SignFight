@@ -132,10 +132,9 @@
      <Compile Include="Assets\Scripts\HandDebugger.cs" />
      <Compile Include="Assets\Scripts\HandLetter.cs" />
      <Compile Include="Assets\Scripts\LetterController.cs" />
+     <Compile Include="Assets\Scripts\PracticeGame\PracticeEnemyController.cs" />
      <Compile Include="Assets\Scripts\PracticeGame\PracticeGameManager.cs" />
      <Compile Include="Assets\Scripts\RoomSkinController.cs" />
-     <Compile Include="Assets\Scripts\Temp\TempPracticeEnemyController.cs" />
-     <Compile Include="Assets\Scripts\Temp\TempPracticeGameManager.cs" />
      <Compile Include="Assets\Scripts\Temp\TempTimeAttackGameManager.cs" />
      <Compile Include="Assets\Scripts\Temp\TempTimeAttackTimeController.cs" />
      <Compile Include="Assets\Scripts\TimeAttackGame\TimeAttackGameManager.cs" />
