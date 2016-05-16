@@ -9,6 +9,8 @@ public class WordController : MonoBehaviour {
 	public Sprite[] handImage;
 	public GestureController gestureController;
 
+	public AudioSource correctAudio;
+
 	private List<LetterController> displayCharacters = new List<LetterController> ();
 	private List<GameObject> displayCharactersGO = new List<GameObject> ();
 
@@ -24,6 +26,7 @@ public class WordController : MonoBehaviour {
 		currentWordIndex = Random.Range (0, words.Count);
 		GetNewWord ();
 		wordsToBeScored = 0;
+		correctAudio = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -54,7 +57,10 @@ public class WordController : MonoBehaviour {
 
 	public bool CheckAndGetNextChar (bool correct) {
 		SetThisCharCorrect (correct);
-		return NextChar ();
+		if (correct) {
+			correctAudio.Play ();
+		}
+		return NextChar ();;
 	}
 
 	public void SetThisCharCorrect (bool correct) {
