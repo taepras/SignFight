@@ -59,7 +59,7 @@ public class PracticeGameManager : MonoBehaviour {
 		if (wordController.IsKeyHit ()) {
 			lettersCleared++;
 
-			bool isWordFinished = !wordController.NextChar ();
+			bool isWordFinished = !wordController.CheckAndGetNextChar(true);
 			if (isWordFinished) {
 				wordsCleared++;
 				player.Fire (0f);
