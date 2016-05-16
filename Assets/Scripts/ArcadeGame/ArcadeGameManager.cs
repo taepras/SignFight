@@ -57,14 +57,7 @@ public class ArcadeGameManager : MonoBehaviour {
 
 		overlayScreen.ShowOverlayScreenWithText ("Survive!", startDelay - 1f);
 
-		// TODO remove this test
-		try {
-			GameStatus.Load ();
-			print (JsonUtility.ToJson(GameStatus.instance));
-		} catch(System.Exception e){
-			GameStatus.Create ();
-			GameStatus.Save ();
-		}
+		GameStatus.Load ();
 
 		// TODO count down before start
 		uiText.text = "";
@@ -137,6 +130,8 @@ public class ArcadeGameManager : MonoBehaviour {
 			GameStatus.instance.arcadeHighEnemiesKilled = Mathf.Max (GameStatus.instance.arcadeHighEnemiesKilled, enemiesKilled);
 
 			if (!moneyAdded) {
+				GameStatus.instance.arcadeEnemiesKilled += enemiesKilled;
+				GameStatus.instance.arcadeLettersCleared += lettersCleared;
 				GameStatus.instance.money += CalculateScore ();
 				moneyAdded = true;
 			}

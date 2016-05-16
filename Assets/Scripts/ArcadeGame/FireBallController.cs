@@ -36,7 +36,7 @@ public class FireBallController : MonoBehaviour {
 
 		EnemyController enemy = other.GetComponent<EnemyController> ();
 		if (enemy == null)
-//			enemy = other.GetComponent<TempPracticeEnemyController> ();
+			enemy = other.GetComponent<PracticeEnemyController> ();
 		if (enemy != null) {			
 			enemy.TakeDamage (damage);
 		}

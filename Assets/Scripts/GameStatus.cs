@@ -12,13 +12,15 @@ public class GameStatus {
 	public int arcadeHighCombo;
 	public int arcadeHighLettersCleared;
 	public int arcadeHighEnemiesKilled;
+	public int arcadeLettersCleared;
+	public int arcadeEnemiesKilled;
 
 	public int timeAttackHighScore;
 	public int timeAttackHighLettersCleared;
 	public int timeAttackHighWordCleared;
 
 	public int money;
-	public int currentSkinIndex = 0;
+	public int currentSkinIndex;
 	public Material currentSkinMaterial;
 	public bool[] unlockedSkin;
 
@@ -32,13 +34,24 @@ public class GameStatus {
 	}
 
 	public static void Load(){
-		if (instance == null) {
-			string json = File.ReadAllText ("save.json");
-			instance = JsonUtility.FromJson<GameStatus> (json);
+		// TODO remove this test
+		try {
+			if (instance == null) {
+				string json = File.ReadAllText ("save.json");
+				instance = JsonUtility.FromJson<GameStatus> (json);
+			}
+		} catch(System.Exception e){
+			GameStatus.Create ();
+			GameStatus.Save ();
 		}
 	}
 
 	public static void Create(){
 		instance = new GameStatus ();
+		instance.unlockedSkin = new bool[9];
+		instance.unlockedSkin [0] = true;
+		instance.currentSkinIndex = 0;
+
+		instance.money = 5000; //use in testing
 	}
 }

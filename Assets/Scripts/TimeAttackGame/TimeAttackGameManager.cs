@@ -173,6 +173,10 @@ public class TimeAttackGameManager : MonoBehaviour {
 		return combo;
 	}
 
+	public int GetTimeRemaining () {
+		return timeNow;
+	}
+
 	public int GetMaxCombo () {
 		return maxCombo;
 	}
