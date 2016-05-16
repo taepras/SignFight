@@ -11,10 +11,12 @@ public class ButtonController : MonoBehaviour {
 	private float timeStartClick = 0;
 
 	private Button button = null;
+	private AudioSource selectAudio;
 
 	// Use this for initialization
 	void Start () {
 		button = GetComponent<Button> ();
+		selectAudio = GetComponent<AudioSource> ();
 		clickSlider = transform.FindChild ("ClickSlider").GetComponent<Slider> ();
 		clickSlider.value = 0;
 		timeStartClick = Time.time;
@@ -38,12 +40,18 @@ public class ButtonController : MonoBehaviour {
 			clickSlider.value = (Time.time - timeStartClick) / timeToClick;
 			if (Time.time - timeStartClick >= timeToClick) {
 				timeStartClick = Time.time;
-				OnClick ();
+				selectAudio.Play ();
+				StartCoroutine (ExecuteClick());
 			}
 		} else {
 			timeStartClick = Time.time;
 			clickSlider.value = 0;
 		}
+	}
+
+	IEnumerator ExecuteClick () {
+		yield return new WaitForSeconds(selectAudio.clip.length);
+		OnClick ();
 	}
 
 	void OnTriggerExit2D (Collider2D other){
