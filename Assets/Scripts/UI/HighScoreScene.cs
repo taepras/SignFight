@@ -24,7 +24,7 @@ public class HighScoreScene : MonoBehaviour {
 
 		timeAttackLetterCleard.text = "Letters Cleared: " + GameStatus.instance.timeAttackLettersCleared;
 
-		timeAttackHighestScore.text = "Highest Score: " + GameStatus.instance.timeAttackLettersCleared;
+		timeAttackHighestScore.text = "Highest Score: " + GameStatus.instance.timeAttackHighScore;
 
 		ArcadeHighestScore.text = "Highest Score: " + GameStatus.instance.arcadeHighScore;
 
